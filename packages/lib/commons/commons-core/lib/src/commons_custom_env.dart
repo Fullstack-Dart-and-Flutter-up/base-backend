@@ -1,8 +1,8 @@
 import 'dart:io';
 
 class CustomEnv {
-  static String _file = '.-dart';
   static Map<String, String> _map = {};
+  static String _file = '.env';
 
   CustomEnv._();
 
@@ -11,7 +11,8 @@ class CustomEnv {
     return CustomEnv._();
   }
   static Future<void> _load() async {
-    List<String> linhas = (await _readFile()).split('\n');
+    List<String> linhas = (await _readFile()).split('\n')
+      ..removeWhere((e) => e.isEmpty);
     _map = {for (var l in linhas) l.split('=')[0]: l.split('=')[1]};
   }
 
@@ -27,12 +28,13 @@ class CustomEnv {
 
 extension ParserExtension on String {
   dynamic toType(Type type) {
-    if (type == String) {
-      return this;
-    } else if (type == int) {
-      return int.parse(this);
+    switch (type) {
+      case String:
+        return toString();
+      case int:
+        return int.parse(toString());
+      default:
+        return toString();
     }
-
-    return toString();
   }
 }

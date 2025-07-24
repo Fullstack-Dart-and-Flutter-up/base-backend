@@ -1,9 +1,9 @@
 import 'package:shelf/shelf.dart';
-import 'package:commons_core/commons_core.dart';
+import '../../../packages/lib/commons/commons-core/lib/commons_core.dart';
 import '../security/security_service.dart';
 
 abstract class Controller {
-  Handler getHandler({List<Middleware>? middleware, bool isSecurity});
+  Handler getHandler({List<Middleware>? middleware, bool isSecurity = false});
 
   Handler createHandler({
     //recebe handler e pode ou nao receber uma lista de middles

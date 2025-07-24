@@ -1,5 +1,5 @@
 import 'package:mysql1/mysql1.dart';
-import 'package:commons_core/commons_core.dart';
+import '../../../packages/lib/commons/commons-core/lib/commons_core.dart';
 import 'database.dart';
 
 class DatabaseMysqlAdapter implements Database {
