@@ -30,11 +30,11 @@ extension ParserExtension on String {
   dynamic toType(Type type) {
     switch (type) {
       case String:
-        return toString();
+        return toString().trim();
       case int:
-        return int.parse(toString());
+        return int.parse(toString().trim());
       default:
-        return toString();
+        return toString().trim(); //trim remove os espacos em branco
     }
   }
 }
