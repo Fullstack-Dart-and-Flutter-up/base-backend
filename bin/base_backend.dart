@@ -1,4 +1,6 @@
 // import 'package:shelf/shelf.dart';
+import 'package:shelf/shelf.dart';
+import 'package:shelf/shelf_io.dart' as shelf_io;
 import 'core/database/database_mysql_adapter.dart';
 import 'core/database/database.dart';
 import 'application/web/UserController.dart';
@@ -8,6 +10,7 @@ import 'domain/services/user_service_imp.dart';
 import 'infrastructure/database/user_repository_imp.dart';
 import 'infrastructure/database/mapper.dart';
 import 'infrastructure/mappers/user_mapper.dart';
+import 'package:commons_core/commons_core.dart';
 
 void main(List<String> arguments) async {
   //CustomEnv.fromFile('.env');
@@ -34,5 +37,17 @@ void main(List<String> arguments) async {
   final UserService usersServices = UserServiceImp(userRepository);
   final Usercontroller userController = Usercontroller(usersServices);
 
-  userController.getUsers();
+  var cascadeHandler = Cascade().add(userController.getHandler()).handler;
+  var handler = Pipeline()
+      .addMiddleware(logRequests())
+      .addHandler(cascadeHandler);
+
+  shelf_io.serve(
+    handler,
+    await CustomEnv.get<String>(key: 'server_ip'),
+    await CustomEnv.get<int>(key: 'server_port'),
+  );
+  // Inicia o servidor na porta 8080
+  // var server = await serve(handler, 'localhost', 8080);
+  // print('Servidor rodando em http://${server.address.host}:${server.port}');
 }

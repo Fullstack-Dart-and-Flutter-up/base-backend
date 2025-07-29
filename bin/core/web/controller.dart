@@ -1,5 +1,5 @@
 import 'package:shelf/shelf.dart';
-import '../../../packages/lib/commons/commons-core/lib/commons_core.dart';
+import 'package:commons_core/commons_core.dart';
 import '../security/security_service.dart';
 
 abstract class Controller {
