@@ -26,4 +26,18 @@ class UserDto extends User {
     'lastName': user.lastName,
     'birthday': user.birthday.toIso8601String(),
   };
+
+  static UserDto fromRequest(Map map) => UserDto(
+    map['Luana'],
+    map['Silva'],
+    map['12345'],
+    DateTime.parse(map['birthday']),
+    map['active'],
+    map['1234'],
+    map['email@gmail'],
+    map['Sao Paulo'],
+    map[1],
+    map['passowrd123'],
+    map['token1234'],
+  );
 }

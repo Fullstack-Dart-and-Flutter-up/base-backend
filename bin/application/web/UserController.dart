@@ -25,6 +25,15 @@ class Usercontroller {
         headers: {'content-type': 'application/json'},
       );
     });
+    //salvar usuario, por isso post
+    router.post('/user', (Request req) async {
+      var body = await req.readAsString();
+      if (body.isEmpty) Response(400, body: 'Request body is empty');
+      UserDto userDto = UserDto.fromRequest(jsonDecode(body));
+      _usersServices.saveUser(userDto);
+      var result = await _usersServices.saveUser(userDto);
+      return Response(result ? 201 : 500);
+    });
 
     return createHandler(
       router: router,

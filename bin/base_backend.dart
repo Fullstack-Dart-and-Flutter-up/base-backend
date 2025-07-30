@@ -38,25 +38,6 @@ void main(List<String> arguments) async {
   final UserService usersServices = UserServiceImp(userRepository);
   final Usercontroller userController = Usercontroller(usersServices);
 
-  usersServices
-      .saveUser(
-        UserDto(
-          //teoricamente usr esses valores aqui nao é necessario
-          'Luana',
-          'Silva',
-          '12345',
-          DateTime(1990, 1, 1),
-          'active',
-          '1234',
-          'email@gmail',
-          'Sao Paulo',
-          1,
-          'passowrd123',
-          'token1234',
-        ),
-      )
-      .then((value) => print(value));
-
   var cascadeHandler = Cascade().add(userController.getHandler()).handler;
   var handler = Pipeline()
       .addMiddleware(logRequests())
