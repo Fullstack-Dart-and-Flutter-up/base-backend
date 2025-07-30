@@ -2,6 +2,7 @@ import '../../domain/models/user_model.dart';
 import '../../domain/ports/input/output/user_repository.dart';
 import '../../core/database/database.dart';
 import '../../infrastructure/database/mapper.dart';
+import '../../application/dto/user_dto.dart';
 
 class UserRepositoryImp implements UserRepository {
   final Mapper _mapper;
@@ -49,8 +50,45 @@ FROM tb_users;
   }
 
   @override
-  bool saveUser(User user) {
-    // TODO: implement saveUser
-    throw UnimplementedError();
+  Future<bool> saveUser(User user) async {
+    user as UserDto;
+    final String _sql = ''''
+    INSERT INTO tb_users (
+      name,
+      lastname,
+      userscol,
+      birthday,
+      document,
+      email,
+      city,
+      status,
+      dtCreated,
+      dtUpdated
+    ) VALUES (
+      ?,
+      ?,
+     ?,
+      ?,
+      ?,
+      ?,
+      ?
+    ); ''';
+
+    var result = await _database.query(_sql, [
+      user.name,
+      user.lastName,
+      user.userscol,
+      user.birthday!.toIso8601String(),
+      user.document,
+      user.email,
+      'senha',
+      'deviceToken',
+      user.city,
+      user.password,
+      user.deviceToken,
+      user.status.toString(),
+    ]);
+
+    return result.affectedRows > 0;
   }
 }

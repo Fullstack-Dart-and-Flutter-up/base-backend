@@ -3,14 +3,14 @@ import '../database/mapper.dart';
 
 class UserMapper implements Mapper<User> {
   User toDamin(Map map) => User(
-    id: map['id'],
-    name: map['name'],
-    lastName: map['lastName'],
-    birthday: map['birthday'],
-    status: map['status'],
-    document: map['document'],
-    email: map['email'],
-    city: map['city'],
+    map['name'],
+    map['lastName'],
+    map['userscol'],
+    map['birthday'],
+    map['status'],
+    map['document'],
+    map['email'],
+    map['city'],
   );
 
   @override

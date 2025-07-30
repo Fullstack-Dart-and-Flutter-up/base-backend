@@ -11,6 +11,7 @@ import 'infrastructure/database/user_repository_imp.dart';
 import 'infrastructure/database/mapper.dart';
 import 'infrastructure/mappers/user_mapper.dart';
 import 'package:commons_core/commons_core.dart';
+import 'application/dto/user_dto.dart';
 
 void main(List<String> arguments) async {
   //CustomEnv.fromFile('.env');
@@ -36,6 +37,25 @@ void main(List<String> arguments) async {
   );
   final UserService usersServices = UserServiceImp(userRepository);
   final Usercontroller userController = Usercontroller(usersServices);
+
+  usersServices
+      .saveUser(
+        UserDto(
+          //teoricamente usr esses valores aqui nao é necessario
+          'Luana',
+          'Silva',
+          '12345',
+          DateTime(1990, 1, 1),
+          'active',
+          '1234',
+          'email@gmail',
+          'Sao Paulo',
+          1,
+          'passowrd123',
+          'token1234',
+        ),
+      )
+      .then((value) => print(value));
 
   var cascadeHandler = Cascade().add(userController.getHandler()).handler;
   var handler = Pipeline()

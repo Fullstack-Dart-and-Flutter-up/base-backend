@@ -10,7 +10,12 @@ class UserServiceImp implements UserService {
     : _userRepository = userRepository;
 
   @override
-  Future<List<User>> getAllUsers() async {
-    return await _userRepository.getUsers();
+  Future<List<User>> getAllUsers() {
+    return _userRepository.getUsers();
+  }
+
+  @override
+  Future<bool> saveUser(User user) {
+    return _userRepository.saveUser(user);
   }
 }
