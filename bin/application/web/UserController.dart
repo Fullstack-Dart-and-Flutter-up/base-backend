@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:shelf/shelf.dart';
 import 'package:shelf_router/shelf_router.dart';
+import '../../core/web/controller.dart';
 import '../dto/user_dto.dart';
 import '../../domain/models/user_model.dart';
 
 import '../../domain/ports/input/user_service.dart';
 
-class Usercontroller {
+class Usercontroller extends Controller {
   final UserService _usersServices;
 
   Usercontroller(this._usersServices);
@@ -36,7 +37,7 @@ class Usercontroller {
     });
 
     return createHandler(
-      router: router,
+      router: router.call,
       middleware: middleware,
       isSecurity: isSecurity,
     );
